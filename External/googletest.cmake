@@ -3,7 +3,7 @@
 
 set(googletest_REV "dcc92d0ab6c4ce022162a23566d44f673251eee4")
 
-UpdateExternalLib("googletest" "https://github.com/google/googletest.git" ${googletest_REV})
+#UpdateExternalLib("googletest" "https://github.com/google/googletest.git" ${googletest_REV})
 
 set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
 set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
