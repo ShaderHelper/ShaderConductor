@@ -170,8 +170,10 @@ namespace
                 {
                     IFT(m_createInstanceFunc(CLSID_DxcLibrary, __uuidof(IDxcLibrary), reinterpret_cast<void**>(&m_library)));
                     IFT(m_createInstanceFunc(CLSID_DxcCompiler, __uuidof(IDxcCompiler), reinterpret_cast<void**>(&m_compiler)));
+#ifdef _WIN32
                     IFT(m_createInstanceFunc(CLSID_DxcContainerReflection, __uuidof(IDxcContainerReflection),
                                              reinterpret_cast<void**>(&m_containerReflection)));
+#endif
                 }
                 else
                 {
@@ -184,8 +186,11 @@ namespace
             {
                 throw std::runtime_error("COULDN'T load dxcompiler.");
             }
-
+#ifdef _WIN32
             m_linkerSupport = (CreateLinker() != nullptr);
+#else
+            m_linkerSupport = false;
+#endif
         }
 
     private:
