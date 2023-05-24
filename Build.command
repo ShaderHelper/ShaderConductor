@@ -4,14 +4,16 @@ cd $CUR_DIR
 
 SRC_DIR="Build"
 
+export MACOSX_DEPLOYMENT_TARGET=10.15 
+
 if [ "$#" -eq 1 ] && [ "$1" == "-debug" ]; then
 	# Debug
 	python3 BuildAll.py ninja clang mac_universal Debug
 	SRC_DIR="$SRC_DIR/ninja-osx-clang-mac_universal-Debug"
 else
 	# Release
-	python3 BuildAll.py ninja clang mac_universal RelWithDebInfo
-	SRC_DIR="$SRC_DIR/ninja-osx-clang-mac_universal-RelWithDebInfo"
+	python3 BuildAll.py ninja clang mac_universal Release
+	SRC_DIR="$SRC_DIR/ninja-osx-clang-mac_universal-Release"
 	echo "$SRC_DIR"
 fi
 
