@@ -3,7 +3,7 @@
 
 set(SPIRV_Headers_REV "c16439f4268a9de088ac7c67b6206ade4b28d53a")
 
-#UpdateExternalLib("SPIRV-Headers" "https://github.com/KhronosGroup/SPIRV-Headers.git" ${SPIRV_Headers_REV})
+UpdateExternalLib("SPIRV-Headers" "https://github.com/KhronosGroup/SPIRV-Headers.git" ${SPIRV_Headers_REV})
 
 add_subdirectory(SPIRV-Headers EXCLUDE_FROM_ALL)
 foreach(target

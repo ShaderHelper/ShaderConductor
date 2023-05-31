@@ -1,9 +1,9 @@
 # Copyright (c) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT License.
 
-set(DirectXShaderCompiler_REV "83f8c6c5b74cf8e19fee9fbc7e7e31f4f53282b4")
+set(DirectXShaderCompiler_REV "109bc6a348a6ea772e28a9e1a42619c9b71255e0")
 
-#UpdateExternalLib("DirectXShaderCompiler" "https://github.com/Microsoft/DirectXShaderCompiler.git" ${DirectXShaderCompiler_REV})
+UpdateExternalLib("DirectXShaderCompiler" "https://github.com/SjMxr233/DirectXShaderCompiler.git" ${DirectXShaderCompiler_REV})
 
 set(ENABLE_SPIRV_CODEGEN ON CACHE BOOL "" FORCE)
 set(CLANG_ENABLE_ARCMT OFF CACHE BOOL "" FORCE)

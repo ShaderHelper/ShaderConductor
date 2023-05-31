@@ -3,7 +3,7 @@
 
 set(SPIRV_Cross_REV "a89dea3c499b1e322b39c7e6127af2777c4aa49b")
 
-#UpdateExternalLib("SPIRV-Cross" "https://github.com/KhronosGroup/SPIRV-Cross.git" ${SPIRV_Cross_REV})
+UpdateExternalLib("SPIRV-Cross" "https://github.com/KhronosGroup/SPIRV-Cross.git" ${SPIRV_Cross_REV})
 
 add_subdirectory(SPIRV-Cross EXCLUDE_FROM_ALL)
 foreach(target
