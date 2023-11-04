@@ -56,6 +56,31 @@
 
 using namespace ShaderConductor;
 
+static bool ParseSpirvCrossOption(const ShaderConductor::MacroDefine& define, const char* name, bool& outValue)
+{
+    if (::strcmp(define.name, name) == 0)
+    {
+        outValue = (std::stoi(define.value) != 0);
+        return true;
+    }
+    return false;
+}
+
+#define PARSE_SPIRVCROSS_OPTION(DEFINE, NAME, VALUE)    \
+    if (ParseSpirvCrossOption(DEFINE, NAME, VALUE))     \
+    {                                                   \
+        return true;                                    \
+    }
+
+
+static bool ParseSpirvCrossOptionMetal(spirv_cross::CompilerMSL::Options& opt, const ShaderConductor::MacroDefine& define)
+{
+    PARSE_SPIRVCROSS_OPTION(define, "argument_buffers", opt.argument_buffers);
+    PARSE_SPIRVCROSS_OPTION(define, "enable_decoration_binding", opt.enable_decoration_binding);
+    PARSE_SPIRVCROSS_OPTION(define, "force_active_argument_buffer_resources", opt.force_active_argument_buffer_resources);
+    return false;
+}
+
 namespace
 {
     bool dllDetaching = false;
@@ -660,6 +685,25 @@ namespace
         case ShadingLanguage::Msl_macOS:
         case ShadingLanguage::Msl_iOS:
             dxcArgStrings.push_back(L"-spirv");
+
+            for (uint32_t arg = 0; arg < options.numDXCArgs; ++arg)
+            {
+                std::wstring argUTF16;
+                Unicode::UTF8ToWideString(options.DXCArgs[arg], &argUTF16);
+                if (argUTF16.compare(0, 8, L"-Oconfig") == 0)
+                {
+                    // Replace previous '-O' argument with the custom configuration
+                    auto dxcOptArgIter = std::find_if(dxcArgStrings.begin(), dxcArgStrings.end(),
+                                                      [](const std::wstring& entry) { return entry.compare(0, 2, L"-O") == 0; });
+                    if (dxcOptArgIter != dxcArgStrings.end())
+                        *dxcOptArgIter = argUTF16;
+                    else
+                        dxcArgStrings.push_back(argUTF16);
+                }
+                else
+                    dxcArgStrings.push_back(argUTF16);
+            }
+
             break;
 
         default:
@@ -868,6 +912,12 @@ namespace
                 mslOpts.msl_version = opts.version;
             }
             mslOpts.swizzle_texture_samples = false;
+
+            for (unsigned i = 0; i < target.numOptions; i++)
+            {
+                ParseSpirvCrossOptionMetal(mslOpts, target.options[i]);
+            }
+
             mslOpts.platform = (target.language == ShadingLanguage::Msl_iOS) ? spirv_cross::CompilerMSL::Options::iOS
                                                                              : spirv_cross::CompilerMSL::Options::macOS;
 
