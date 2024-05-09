@@ -248,13 +248,9 @@ namespace
             {
                 return E_FAIL;
             }
-
-            Blob source;
-            try
-            {
-                source = m_loadCallback(utf8FileName.c_str());
-            }
-            catch (...)
+    
+            Blob source = m_loadCallback(utf8FileName.c_str());
+            if(!source.Data())
             {
                 return E_FAIL;
             }
