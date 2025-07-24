@@ -27,7 +27,7 @@
 
 #include <dxc/Support/Global.h>
 #include <dxc/Support/Unicode.h>
-#include <dxc/Support/WinAdapter.h>
+#include <dxc/WinAdapter.h>
 #include <dxc/Support/WinIncludes.h>
 
 #include <algorithm>
