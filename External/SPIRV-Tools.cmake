@@ -3,7 +3,7 @@
 
 set(SPIRV_Tools_REV "4d2f0b40bfe290dea6c6904dafdf7fd8328ba346")
 
-UpdateExternalLib("SPIRV-Tools" "https://github.com/KhronosGroup/SPIRV-Tools.git" ${SPIRV_Tools_REV})
+UpdateExternalLib("SPIRV-Tools" "git@github.com:KhronosGroup/SPIRV-Tools.git" ${SPIRV_Tools_REV})
 
 set(SPIRV_SKIP_EXECUTABLES ON CACHE BOOL "" FORCE)
 add_subdirectory(SPIRV-Tools EXCLUDE_FROM_ALL)
