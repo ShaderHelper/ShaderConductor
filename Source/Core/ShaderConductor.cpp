@@ -1201,6 +1201,13 @@ namespace ShaderConductor
         }
     }
 
+    Compiler::ResultDesc Compiler::SpvCompile(const Blob& spvBinary, const char* entryPoint, ShaderStage stage, const Compiler::TargetDesc& target)
+    {
+        return CrossCompile(
+            Compiler::ResultDesc{spvBinary},
+            Compiler::SourceDesc{nullptr, nullptr, entryPoint, stage}, {}, target);
+    }
+
     Compiler::ResultDesc Compiler::Disassemble(const DisassembleDesc& source)
     {
         assert((source.language == ShadingLanguage::SpirV) || (source.language == ShadingLanguage::Dxil));
