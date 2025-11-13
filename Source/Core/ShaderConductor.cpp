@@ -897,6 +897,7 @@ namespace
                 buildDummySampler = true;
             }
 
+            hlslOpts.use_entry_point_name = true;
             hlslCompiler->set_hlsl_options(hlslOpts);
         }
         else if ((target.language == ShadingLanguage::Msl_macOS) || (target.language == ShadingLanguage::Msl_iOS))
