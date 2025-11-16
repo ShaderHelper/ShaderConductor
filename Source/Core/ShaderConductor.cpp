@@ -875,6 +875,7 @@ namespace
         opts.vertex.fixup_clipspace = false;
         opts.vertex.flip_vert_y = false;
         opts.vertex.support_nonzero_base_instance = true;
+        opts.force_zero_initialized_variables = options.force_zero_initialized_variables;
         compiler->set_common_options(opts);
 
         if (target.language == ShadingLanguage::Hlsl)
@@ -1202,11 +1203,11 @@ namespace ShaderConductor
         }
     }
 
-    Compiler::ResultDesc Compiler::SpvCompile(const Blob& spvBinary, const char* entryPoint, ShaderStage stage, const Compiler::TargetDesc& target)
+    Compiler::ResultDesc Compiler::SpvCompile(const Options& options, const Blob& spvBinary, const char* entryPoint, ShaderStage stage, const Compiler::TargetDesc& target)
     {
         return CrossCompile(
             Compiler::ResultDesc{spvBinary},
-            Compiler::SourceDesc{nullptr, nullptr, entryPoint, stage}, {}, target);
+            Compiler::SourceDesc{nullptr, nullptr, entryPoint, stage}, options, target);
     }
 
     Compiler::ResultDesc Compiler::Disassemble(const DisassembleDesc& source)
